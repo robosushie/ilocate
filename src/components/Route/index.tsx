@@ -163,7 +163,9 @@ const Route: React.FC<{}> = () => {
       }`}
     >
       <motion.div
-        className="rounded-xl overflow-hidden shadow-xl"
+        className={`rounded-xl overflow-hidden ${
+          isVisible ? "ilocate-shadow" : "shadow-lg"
+        }`}
         initial={{ y: "-100%", opacity: 0 }}
         animate={{ y: isVisible ? 0 : -formSize, opacity: 1 }}
         transition={{ duration: 0.5 }}

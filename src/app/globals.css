@@ -3,5 +3,9 @@
 @tailwind utilities;
 
 body {
-  background-color: white;
+  background-color: "#F8FAFC";
+}
+
+.ilocate-shadow {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
