@@ -203,7 +203,9 @@ const Route: React.FC<{}> = () => {
         </div>
 
         <div
-          className="w-full h-[40px] cursor-pointer flex justify-center items-center md:hidden bg-neutral-300"
+          className={`w-full h-[40px] cursor-pointer flex justify-center items-center md:hidden ${
+            isVisible ? "bg-slate-300" : "bg-neutral-100"
+          }`}
           onClick={() => {
             setIsVisible(!isVisible);
           }}
