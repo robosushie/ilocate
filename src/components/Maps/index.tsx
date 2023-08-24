@@ -18,7 +18,7 @@ import { Player, Controls } from "@lottiefiles/react-lottie-player";
 const MapLoaderAnimation: React.FC<{}> = () => {
   return (
     <div className="w-full h-full flex justify-center items-center">
-      <div className="relative w-9/12 lg:w-1/2 object-cover flex justify-center items-center ">
+      <div className="relative w-9/12 lg:w-1/2 object-cover flex flex-col justify-center items-center ">
         <Player
           autoplay
           loop

@@ -124,11 +124,11 @@ const StateBoundaryList = [
 //     const key1 = item.split(" ").join("") + "Json";
 //     const key = item.toLowerCase().split(" ").join("-");
 //     const value = `@/assets/${key}-geojson.json`;
-//     // console.log(`import ${key1}Json from '${value}'`);
-//     console.log(`{'name': "${item}",'json': ${key1}},`);
+//     // // console.log(`import ${key1}Json from '${value}'`);
+//     // console.log(`{'name': "${item}",'json': ${key1}},`);
 //     // return { key: require(value) };
 //   });
-//   console.log(StateBoundaryList.length);
+//   // console.log(StateBoundaryList.length);
 //   return StateBoundaryList;
 // };
 
@@ -152,17 +152,14 @@ function performNearbySearch(service, location) {
 }
 
 export const getPetrolPumpsList = async (coordinates, map) => {
-  if (coordinates.length > 5) return;
   let service = new google.maps.places.PlacesService(map);
   let petrolPumpsList = [];
+
   for (const item of coordinates) {
     try {
       const pumpList = await performNearbySearch(service, item);
       pumpList.forEach((pump) => {
-        const tmpLocation = {
-          lat: pump.geometry?.location.lat(),
-          lng: pump.geometry?.location.lng(),
-        };
+        // // console.log(pump);
         const state = coordinateToState({
           lat: pump.geometry?.location.lat(),
           lng: pump.geometry?.location.lng(),
@@ -182,7 +179,7 @@ export const getPetrolPumpsList = async (coordinates, map) => {
       console.error("Error fetching petrol pumps:", error);
     }
   }
-  console.log(petrolPumpsList);
+  // console.log(petrolPumpsList);
   return petrolPumpsList;
 };
 
@@ -190,7 +187,7 @@ export const filterPetrolPumpsAlongRoute = (
   pathCoordinates,
   allPetrolPumpsList
 ) => {
-  console.log(allPetrolPumpsList);
+  // console.log(allPetrolPumpsList);
   const filteredList = [];
   const rotatedPathCoordinates = pathCoordinates.map((item) => {
     return [item[1], item[0]];
@@ -216,7 +213,7 @@ export const getStateRouteIntersectionList = (pathCoordinates, map) => {
     totalMarkers.push(...markers);
   });
   totalMarkers = removeDuplicates(totalMarkers);
-  console.log(totalMarkers);
+  // console.log(totalMarkers);
   totalMarkers = filterNearestIntersectionPoints([...totalMarkers], 10000);
   return totalMarkers;
 };
@@ -233,7 +230,7 @@ export const coordinateToState = (coordinate) => {
       );
     }
     // const finalPolygon = turf.flatten(polygon);
-    console.log(turf.booleanPointInPolygon(turfCoordinate, polygon));
+    // console.log(turf.booleanPointInPolygon(turfCoordinate, polygon));
     if (turf.booleanPointInPolygon(turfCoordinate, polygon)) {
       return StateBoundaryList[i];
     }
@@ -242,7 +239,7 @@ export const coordinateToState = (coordinate) => {
 };
 
 export const getStateRouteIntersection = (pathCoordinates, map, boundary) => {
-  // console.log(boundary);
+  // // console.log(boundary);
   let polygon;
   if (boundary[0].geojson.type == "Polygon") {
     polygon = turf.polygon(boundary[0].geojson.coordinates);

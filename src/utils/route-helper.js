@@ -17,7 +17,7 @@ export const filterNearestIntersectionPoints = (
 ) => {
   let finalCoordinates = [];
   for (let i = 0; i < coordinates.length; i++) {
-    console.log(coordinates);
+    // console.log(coordinates);
     let cluster = [];
     cluster.push(coordinates[i]);
     for (let j = i + 1; j < coordinates.length; j++) {
@@ -39,7 +39,7 @@ export const filterNearestIntersectionPoints = (
       finalCoordinates.push({ lat: center.latitude, lng: center.longitude });
     }
   }
-  console.log(finalCoordinates);
+  // console.log(finalCoordinates);
   return finalCoordinates;
 };
 

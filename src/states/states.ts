@@ -2,6 +2,7 @@ import { create } from "zustand";
 
 interface AppState {
   isMapLoaded: boolean;
+  loadingAnimation: boolean;
   map: any;
   origin: any;
   destination: any;
@@ -11,6 +12,7 @@ interface AppState {
   duration: string;
   markers: any;
   setIsMapLoaded: (value: boolean) => void;
+  setLoadingAnimation: (value: boolean) => void;
   setMap: (value: any) => void;
   setOrigin: (value: any) => void;
   setDestination: (value: any) => void;
@@ -23,6 +25,7 @@ interface AppState {
 
 export const useAppState = create<AppState>((set) => ({
   isMapLoaded: false,
+  loadingAnimation: false,
   map: null,
   origin: null,
   destination: null,
@@ -33,6 +36,9 @@ export const useAppState = create<AppState>((set) => ({
   markers: null,
   setIsMapLoaded: (value: boolean) => {
     set((state) => ({ isMapLoaded: value }));
+  },
+  setLoadingAnimation: (value: boolean) => {
+    set((state) => ({ loadingAnimation: value }));
   },
   setMap: (value: any) => {
     set((state) => ({ map: value }));

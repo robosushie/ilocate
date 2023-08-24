@@ -85,6 +85,7 @@ const Route: React.FC<{}> = () => {
     distance,
     origin,
     destination,
+    setLoadingAnimation,
     setOrigin,
     setDestination,
     setDirections,
@@ -106,6 +107,7 @@ const Route: React.FC<{}> = () => {
     originRef.current.value = "";
     destinationRef.current.value = "";
     setOrigin(null);
+    setLoadingAnimation(false);
     setDestination(null);
     setDirections(null);
     setPathCoordinates(null);
@@ -120,6 +122,7 @@ const Route: React.FC<{}> = () => {
       clearState();
       return;
     }
+    setLoadingAnimation(true);
     setMarkers(null);
     // eslint-disable-next-line no-undef
     const directionsService = new google.maps.DirectionsService();
@@ -130,11 +133,11 @@ const Route: React.FC<{}> = () => {
         // eslint-disable-next-line no-undef
         travelMode: google.maps.TravelMode.DRIVING,
       });
-      console.log(results);
+      // console.log(results);
       const path = results.routes[0].overview_polyline;
       const pathCoordinates = polyline.decode(path);
 
-      console.log(results);
+      // console.log(results);
       setOrigin({
         name: originRef.current.value,
         location: { lat: pathCoordinates[0][0], lng: pathCoordinates[0][1] },
@@ -155,17 +158,18 @@ const Route: React.FC<{}> = () => {
         map
       );
 
-      let allPetrolPumpsList = await getPetrolPumpsList(coordinates, map);
-      let filteredPetrolPumpsList = filterPetrolPumpsAlongRoute(
+      const allPetrolPumpsList = await getPetrolPumpsList(coordinates, map);
+      const filteredPetrolPumpsList = filterPetrolPumpsAlongRoute(
         pathCoordinates,
         allPetrolPumpsList
       );
-      console.log(filteredPetrolPumpsList);
+      // console.log(filteredPetrolPumpsList);
       setMarkers(filteredPetrolPumpsList);
+      setLoadingAnimation(false);
     } catch (e: any) {
       alert(e.message.split(":")[2]);
       clearState();
-      console.log(e.message);
+      // console.log(e.message);
     }
   };
 
@@ -188,7 +192,7 @@ const Route: React.FC<{}> = () => {
         onAnimationComplete={() => {
           if (formSize == 0) {
             const formNode = document.getElementsByClassName("main-form")[0];
-            console.log(formNode);
+            // console.log(formNode);
             const height = formNode?.clientHeight;
             setFormSize(height);
           }

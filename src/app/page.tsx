@@ -11,11 +11,28 @@ import {
 
 import Marker from "@/components/Marker";
 
+import { Player, Controls } from "@lottiefiles/react-lottie-player";
+
 import { useAppState } from "@/states/states";
 import { useEffect } from "react";
 
+const Loader: React.FC<{}> = () => {
+  return (
+    <div className="absolute w-full h-full bg-opacity-40 z-20 bg-white flex justify-center items-center backdrop-blur">
+      <div className="relative w-9/12 lg:w-1/3 aspect-square bg-white bg-opacity-50 border-[4px] overflow-hidden object-cover flex flex-col justify-center items-center rounded-full">
+        <Player
+          autoplay
+          loop
+          src="loader.json"
+          style={{ objectFit: "cover" }}
+        />
+      </div>
+    </div>
+  );
+};
+
 export default function Home() {
-  const { map, markers, setIsMapLoaded } = useAppState();
+  const { loadingAnimation, markers, setIsMapLoaded } = useAppState();
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string,
     libraries: ["places"],
@@ -30,6 +47,7 @@ export default function Home() {
 
   return (
     <main className="w-[100dvw] h-[100dvh]">
+      {loadingAnimation && <Loader />}
       <Route />
       <Maps>
         {markers &&
