@@ -34,6 +34,11 @@ import UttarPradeshJson from "@/assets/uttar-pradesh-geojson.json";
 import UttarakhandJson from "@/assets/uttarakhand-geojson.json";
 import WestBengalJson from "@/assets/west-bengal-geojson.json";
 
+import {
+  filterNearestIntersectionPoints,
+  removeDuplicates,
+} from "./route-helper";
+
 const STATE_LIST = [
   "Andaman Nicobar Islands",
   "Andhra Pradesh",
@@ -119,17 +124,60 @@ const getStateBoundaryList = () => {
   return StateBoundaryList;
 };
 
-export const getStateRouteIntersectionList = (
-  pathCoordinates,
-  map,
-  setMarkers
-) => {
+function performNearbySearch(service, location) {
+  return new Promise((resolve, reject) => {
+    service.nearbySearch(
+      {
+        location: location,
+        radius: 10000,
+        type: "gas_station",
+      },
+      (results, status) => {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+          resolve(results);
+        } else {
+          reject(status);
+        }
+      }
+    );
+  });
+}
+
+export const getPetrolPumpsList = async (coordinates, map, setMarkers) => {
+  if (coordinates.length > 5) return;
+  let service = new google.maps.places.PlacesService(map);
+  let petrolPumpsList = [];
+  for (const item of coordinates) {
+    try {
+      const pumpList = await performNearbySearch(service, item);
+      pumpList.forEach((pump) => {
+        petrolPumpsList.push({
+          name: pump.name,
+          location: {
+            lat: pump.geometry?.location.lat(),
+            lng: pump.geometry?.location.lng(),
+          },
+          details: pump,
+        });
+      });
+    } catch (error) {
+      console.error("Error fetching petrol pumps:", error);
+    }
+  }
+  console.log(petrolPumpsList);
+  setMarkers(petrolPumpsList);
+};
+
+export const getStateRouteIntersectionList = (pathCoordinates, map) => {
   let totalMarkers = [];
   StateBoundaryList.map((item) => {
     const markers = getStateRouteIntersection(pathCoordinates, map, item.json);
     totalMarkers.push(...markers);
   });
-  setMarkers(totalMarkers);
+  totalMarkers = removeDuplicates(totalMarkers);
+  console.log(totalMarkers);
+  totalMarkers = filterNearestIntersectionPoints([...totalMarkers], 10000);
+  return totalMarkers;
 };
 
 export const getStateRouteIntersection = (pathCoordinates, map, boundary) => {

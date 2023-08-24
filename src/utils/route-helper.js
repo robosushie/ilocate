@@ -1,10 +1,49 @@
 const geolib = require("geolib");
 
-export const removeDuplicates = () => {};
+export const removeDuplicates = (array) => {
+  const uniqueKeys = new Set();
+  return array.filter((item) => {
+    if (!uniqueKeys.has(JSON.stringify(item))) {
+      uniqueKeys.add(JSON.stringify(item));
+      return true;
+    }
+    return false;
+  });
+};
 
-export const filterIntersectionPoints = (pointsList) => {};
+export const filterNearestIntersectionPoints = (
+  coordinates,
+  distanceThreshold
+) => {
+  let finalCoordinates = [];
+  for (let i = 0; i < coordinates.length; i++) {
+    console.log(coordinates);
+    let cluster = [];
+    cluster.push(coordinates[i]);
+    for (let j = i + 1; j < coordinates.length; j++) {
+      if (
+        geolib.isPointWithinRadius(
+          coordinates[i],
+          coordinates[j],
+          distanceThreshold
+        )
+      ) {
+        cluster.push(coordinates[j]);
+        i++;
+      }
+    }
+    if (cluster.length == 1) {
+      finalCoordinates.push(cluster[0]);
+    } else {
+      let center = geolib.getCenter(cluster);
+      finalCoordinates.push({ lat: center.latitude, lng: center.longitude });
+    }
+  }
+  console.log(finalCoordinates);
+  return finalCoordinates;
+};
 
-// The function is having issues
+// The function is having issues !!! Do not use
 export const interpolatePath = (decodedPath, intervalMeters) => {
   const interpolatedPath = [];
 

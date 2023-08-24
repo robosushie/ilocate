@@ -4,10 +4,12 @@ import React, { useEffect, useState } from "react";
 import {
   GoogleMap,
   useJsApiLoader,
-  Marker,
   Autocomplete,
   DirectionsRenderer,
+  Circle,
 } from "@react-google-maps/api";
+
+import Marker from "@/components/Marker";
 
 import { useAppState } from "@/states/states";
 
@@ -48,7 +50,7 @@ const Maps: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
     <div className="w-full h-full">
       <GoogleMap
         zoom={15}
-        center={center}
+        center={origin ? origin.location : center}
         mapContainerStyle={{ width: "100%", height: "100%" }}
         options={{
           zoomControl: false,
@@ -58,7 +60,7 @@ const Maps: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
         }}
         onLoad={(map) => setMap(map)}
       >
-        {origin && <Marker position={origin.location} />}
+        {/* {origin && <Marker item={origin.location} data={origin.location} />} */}
         {directions && <DirectionsRenderer directions={directions} />}
         {children}
       </GoogleMap>

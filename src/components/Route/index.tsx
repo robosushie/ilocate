@@ -5,7 +5,10 @@ import polyline from "@mapbox/polyline";
 import { Autocomplete } from "@react-google-maps/api";
 import { useAppState } from "@/states/states";
 
-import { getStateRouteIntersectionList } from "@/utils/state-route-intersection";
+import {
+  getStateRouteIntersectionList,
+  getPetrolPumpsList,
+} from "@/utils/state-route-intersection";
 
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -145,7 +148,12 @@ const Route: React.FC<{}> = () => {
       setPathCoordinates(pathCoordinates);
       setDistance(results.routes[0].legs[0].distance?.text || "");
       setDuration(results.routes[0].legs[0].duration?.text || "");
-      getStateRouteIntersectionList(pathCoordinates, map, setMarkers);
+      const coordinates: any = getStateRouteIntersectionList(
+        pathCoordinates,
+        map
+      );
+      // setMarkers(coordinates);
+      getPetrolPumpsList(coordinates, map, setMarkers);
     } catch (e: any) {
       alert(e.message.split(":")[2]);
       clearState();
