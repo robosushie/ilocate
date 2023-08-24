@@ -76,60 +76,68 @@ const STATE_LIST = [
 ];
 
 const StateBoundaryList = [
-  { name: "Andaman Nicobar Islands", json: AndamanNicobarIslandsJson },
-  { name: "Andhra Pradesh", json: AndhraPradeshJson },
-  { name: "Arunachal Pradesh", json: ArunachalPradeshJson },
-  { name: "Assam", json: AssamJson },
-  { name: "Bihar", json: BiharJson },
-  { name: "Chandigarh", json: ChandigarhJson },
-  { name: "Chhattisgarh", json: ChhattisgarhJson },
-  { name: "Dadra and Nagar Haveli", json: DadraandNagarHaveliJson },
-  { name: "Delhi", json: DelhiJson },
-  { name: "Goa", json: GoaJson },
-  { name: "Gujarat", json: GujaratJson },
-  { name: "Haryana", json: HaryanaJson },
-  { name: "Himachal Pradesh", json: HimachalPradeshJson },
-  { name: "Jammu and Kashmir", json: JammuandKashmirJson },
-  { name: "Jharkhand", json: JharkhandJson },
-  { name: "Karnataka", json: KarnatakaJson },
-  { name: "Kerala", json: KeralaJson },
-  { name: "Madhya Pradesh", json: MadhyaPradeshJson },
-  { name: "Maharashtra", json: MaharashtraJson },
-  { name: "Manipur", json: ManipurJson },
-  { name: "Meghalaya", json: MeghalayaJson },
-  { name: "Mizoram", json: MizoramJson },
-  { name: "Nagaland", json: NagalandJson },
-  { name: "Odisha", json: OdishaJson },
-  { name: "Punjab", json: PunjabJson },
-  { name: "Rajasthan", json: RajasthanJson },
-  { name: "Sikkim", json: SikkimJson },
-  { name: "Tamil Nadu", json: TamilNaduJson },
-  { name: "Telangana", json: TelanganaJson },
-  { name: "Tripura", json: TripuraJson },
-  { name: "Uttar Pradesh", json: UttarPradeshJson },
-  { name: "Uttarakhand", json: UttarakhandJson },
-  { name: "West Bengal", json: WestBengalJson },
+  {
+    name: "Andaman Nicobar Islands",
+    json: AndamanNicobarIslandsJson,
+    petrol: 84.1,
+  },
+  { name: "Andhra Pradesh", json: AndhraPradeshJson, petrol: 111.58 },
+  { name: "Arunachal Pradesh", json: ArunachalPradeshJson, petrol: 92.78 },
+  { name: "Assam", json: AssamJson, petrol: 98.44 },
+  { name: "Bihar", json: BiharJson, petrol: 109.1 },
+  { name: "Chandigarh", json: ChandigarhJson, petrol: 96.18 },
+  { name: "Chhattisgarh", json: ChhattisgarhJson, petrol: 103.58 },
+  {
+    name: "Dadra and Nagar Haveli",
+    json: DadraandNagarHaveliJson,
+    petrol: 94.29,
+  },
+  { name: "Delhi", json: DelhiJson, petrol: 96.76 },
+  { name: "Goa", json: GoaJson, petrol: 97.17 },
+  { name: "Gujarat", json: GujaratJson, petrol: 96.41 },
+  { name: "Haryana", json: HaryanaJson, petrol: 97.46 },
+  { name: "Himachal Pradesh", json: HimachalPradeshJson, petrol: 97.05 },
+  { name: "Jammu and Kashmir", json: JammuandKashmirJson, petrol: 100.92 },
+  { name: "Jharkhand", json: JharkhandJson, petrol: 100.07 },
+  { name: "Karnataka", json: KarnatakaJson, petrol: 102.46 },
+  { name: "Kerala", json: KeralaJson, petrol: 108.05 },
+  { name: "Madhya Pradesh", json: MadhyaPradeshJson, petrol: 110.55 },
+  { name: "Maharashtra", json: MaharashtraJson, petrol: 105.95 },
+  { name: "Manipur", json: ManipurJson, petrol: 101.23 },
+  { name: "Meghalaya", json: MeghalayaJson, petrol: 97.45 },
+  { name: "Mizoram", json: MizoramJson, petrol: 95.86 },
+  { name: "Nagaland", json: NagalandJson, petrol: 98.27 },
+  { name: "Odisha", json: OdishaJson, petrol: 104.53 },
+  { name: "Punjab", json: PunjabJson, petrol: 98.69 },
+  { name: "Rajasthan", json: RajasthanJson, petrol: 108.05 },
+  { name: "Sikkim", json: SikkimJson, petrol: 102.55 },
+  { name: "Tamil Nadu", json: TamilNaduJson, petrol: 103.57 },
+  { name: "Telangana", json: TelanganaJson, petrol: 111.88 },
+  { name: "Tripura", json: TripuraJson, petrol: 99.49 },
+  { name: "Uttar Pradesh", json: UttarPradeshJson, petrol: 96.33 },
+  { name: "Uttarakhand", json: UttarakhandJson, petrol: 95.6 },
+  { name: "West Bengal", json: WestBengalJson, petrol: 106.01 },
 ];
 
-const getStateBoundaryList = () => {
-  const StateBoundaryList = STATE_LIST.map((item) => {
-    const key1 = item.split(" ").join("") + "Json";
-    const key = item.toLowerCase().split(" ").join("-");
-    const value = `@/assets/${key}-geojson.json`;
-    // console.log(`import ${key1}Json from '${value}'`);
-    console.log(`{'name': "${item}",'json': ${key1}},`);
-    // return { key: require(value) };
-  });
-  console.log(StateBoundaryList.length);
-  return StateBoundaryList;
-};
+// const getStateBoundaryList = () => {
+//   const StateBoundaryList = STATE_LIST.map((item) => {
+//     const key1 = item.split(" ").join("") + "Json";
+//     const key = item.toLowerCase().split(" ").join("-");
+//     const value = `@/assets/${key}-geojson.json`;
+//     // console.log(`import ${key1}Json from '${value}'`);
+//     console.log(`{'name': "${item}",'json': ${key1}},`);
+//     // return { key: require(value) };
+//   });
+//   console.log(StateBoundaryList.length);
+//   return StateBoundaryList;
+// };
 
 function performNearbySearch(service, location) {
   return new Promise((resolve, reject) => {
     service.nearbySearch(
       {
         location: location,
-        radius: 10000,
+        radius: 50000,
         type: "gas_station",
       },
       (results, status) => {
@@ -143,7 +151,7 @@ function performNearbySearch(service, location) {
   });
 }
 
-export const getPetrolPumpsList = async (coordinates, map, setMarkers) => {
+export const getPetrolPumpsList = async (coordinates, map) => {
   if (coordinates.length > 5) return;
   let service = new google.maps.places.PlacesService(map);
   let petrolPumpsList = [];
@@ -151,6 +159,14 @@ export const getPetrolPumpsList = async (coordinates, map, setMarkers) => {
     try {
       const pumpList = await performNearbySearch(service, item);
       pumpList.forEach((pump) => {
+        const tmpLocation = {
+          lat: pump.geometry?.location.lat(),
+          lng: pump.geometry?.location.lng(),
+        };
+        const state = coordinateToState({
+          lat: pump.geometry?.location.lat(),
+          lng: pump.geometry?.location.lng(),
+        });
         petrolPumpsList.push({
           name: pump.name,
           location: {
@@ -158,6 +174,8 @@ export const getPetrolPumpsList = async (coordinates, map, setMarkers) => {
             lng: pump.geometry?.location.lng(),
           },
           details: pump,
+          state: state.name,
+          petrol: state.petrol,
         });
       });
     } catch (error) {
@@ -165,7 +183,30 @@ export const getPetrolPumpsList = async (coordinates, map, setMarkers) => {
     }
   }
   console.log(petrolPumpsList);
-  setMarkers(petrolPumpsList);
+  return petrolPumpsList;
+};
+
+export const filterPetrolPumpsAlongRoute = (
+  pathCoordinates,
+  allPetrolPumpsList
+) => {
+  console.log(allPetrolPumpsList);
+  const filteredList = [];
+  const rotatedPathCoordinates = pathCoordinates.map((item) => {
+    return [item[1], item[0]];
+  });
+  const routeLineString = turf.lineString(rotatedPathCoordinates);
+  allPetrolPumpsList.map((pump) => {
+    const point = turf.point([pump.location.lng, pump.location.lat]);
+    const distance = turf.pointToLineDistance(point, routeLineString, {
+      units: "meters",
+    });
+    if (distance <= 1000) {
+      filteredList.push(pump);
+    }
+  });
+
+  return filteredList;
 };
 
 export const getStateRouteIntersectionList = (pathCoordinates, map) => {
@@ -178,6 +219,26 @@ export const getStateRouteIntersectionList = (pathCoordinates, map) => {
   console.log(totalMarkers);
   totalMarkers = filterNearestIntersectionPoints([...totalMarkers], 10000);
   return totalMarkers;
+};
+
+export const coordinateToState = (coordinate) => {
+  let turfCoordinate = [coordinate.lng, coordinate.lat];
+  for (let i = 0; i < StateBoundaryList.length; i++) {
+    let polygon;
+    if (StateBoundaryList[i].json[0].geojson.type == "Polygon") {
+      polygon = turf.polygon(StateBoundaryList[i].json[0].geojson.coordinates);
+    } else if (StateBoundaryList[i].json[0].geojson.type == "MultiPolygon") {
+      polygon = turf.multiPolygon(
+        StateBoundaryList[i].json[0].geojson.coordinates
+      );
+    }
+    // const finalPolygon = turf.flatten(polygon);
+    console.log(turf.booleanPointInPolygon(turfCoordinate, polygon));
+    if (turf.booleanPointInPolygon(turfCoordinate, polygon)) {
+      return StateBoundaryList[i];
+    }
+  }
+  return { name: "Puducherry", petrol: 95.93 };
 };
 
 export const getStateRouteIntersection = (pathCoordinates, map, boundary) => {

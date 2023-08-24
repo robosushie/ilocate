@@ -35,7 +35,15 @@ export default function Home() {
         {markers &&
           markers.map((item: any, idx: any) => (
             <Marker item={item} index={idx} key={idx}>
-              <div>hi</div>
+              <div className="w-[200px] flex flex-col p-2">
+                <div className="w-full flex flex-col gap-2">
+                  <div className="w-full h-[120px] bg-neutral-300 rounded-md"></div>
+                  <div className="font-bold">{item.name}</div>
+                  <hr />
+                  <div>State: {item.state}</div>
+                  <div>Petrol: INR {item.petrol}</div>
+                </div>
+              </div>
             </Marker>
           ))}
       </Maps>

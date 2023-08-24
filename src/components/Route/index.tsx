@@ -8,6 +8,7 @@ import { useAppState } from "@/states/states";
 import {
   getStateRouteIntersectionList,
   getPetrolPumpsList,
+  filterPetrolPumpsAlongRoute,
 } from "@/utils/state-route-intersection";
 
 import { motion, AnimatePresence } from "framer-motion";
@@ -116,9 +117,10 @@ const Route: React.FC<{}> = () => {
   const calculateRoute = async () => {
     if (originRef.current.value === "" || destinationRef.current.value === "") {
       alert("Please select the Source and Destination locations");
+      clearState();
       return;
     }
-    console.log(map);
+    setMarkers(null);
     // eslint-disable-next-line no-undef
     const directionsService = new google.maps.DirectionsService();
     try {
@@ -148,12 +150,18 @@ const Route: React.FC<{}> = () => {
       setPathCoordinates(pathCoordinates);
       setDistance(results.routes[0].legs[0].distance?.text || "");
       setDuration(results.routes[0].legs[0].duration?.text || "");
-      const coordinates: any = getStateRouteIntersectionList(
+      let coordinates: any = getStateRouteIntersectionList(
         pathCoordinates,
         map
       );
-      // setMarkers(coordinates);
-      getPetrolPumpsList(coordinates, map, setMarkers);
+
+      let allPetrolPumpsList = await getPetrolPumpsList(coordinates, map);
+      let filteredPetrolPumpsList = filterPetrolPumpsAlongRoute(
+        pathCoordinates,
+        allPetrolPumpsList
+      );
+      console.log(filteredPetrolPumpsList);
+      setMarkers(filteredPetrolPumpsList);
     } catch (e: any) {
       alert(e.message.split(":")[2]);
       clearState();
