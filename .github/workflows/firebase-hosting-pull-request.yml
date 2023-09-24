@@ -15,3 +15,5 @@ jobs:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ILOCATE_DEMO_9FC34 }}'
           projectId: ilocate-demo-9fc34
+        env:
+          FIREBASE_CLI_EXPERIMENTS: webframeworks
